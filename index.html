@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Punto de Venta - Mondongo Kabic</title>
+</head>
+<body>
+
+<h2>Registro de Pedido</h2>
+
+<form 
+  action="https://docs.google.com/forms/d/e/1FAIpQLSca03yAL_D97jPuF-M5c2TCuvXNMxZa0JfaAiPcuQ1abWcSJg/formResponse"
+  method="POST"
+  target="_self">
+
+  <label>Nombre del cliente:</label><br>
+  <input type="text" name="entry.1746796448" required><br><br>
+
+  <label>Pedido:</label><br>
+  <input type="text" name="entry.1748853043" required><br><br>
+
+  <label>Cantidad:</label><br>
+  <input type="number" name="entry.428740919" required><br><br>
+
+  <!-- Estado -->
+  <input type="hidden" name="entry.1321358064" value="Pendiente">
+
+  <!-- Fecha -->
+  <input type="hidden" id="year" name="entry.577004131_year">
+  <input type="hidden" id="month" name="entry.577004131_month">
+  <input type="hidden" id="day" name="entry.577004131_day">
+
+  <button type="submit">Enviar Pedido</button>
+</form>
+
+<script>
+  const hoy = new Date();
+  document.getElementById("year").value = hoy.getFullYear();
+  document.getElementById("month").value = hoy.getMonth() + 1;
+  document.getElementById("day").value = hoy.getDate();
+</script>
+
+</body>
+</html>
