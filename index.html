@@ -1,44 +1,592 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Punto de Venta - Mondongo Kabic</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mondonguería PULYAXCHE | Tradición y Sabor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #8B0000; /* Rojo vino, asociado a carnes y tradición */
+            --secondary-color: #F5DEB3; /* Color trigo, cálido y acogedor */
+            --accent-color: #2E8B57; /* Verde bosque, para frescura y naturalidad */
+            --text-dark: #333333;
+            --text-light: #FFFFFF;
+            --gray-bg: #F8F8F8;
+        }
+
+        body {
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header y Navegación */
+        header {
+            background-color: rgba(0, 0, 0, 0.85);
+            color: var(--text-light);
+            padding: 1.2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+        .logo span {
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2.2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 1.05rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('final/img/mondongo.png') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 0 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--secondary-color);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background-color: transparent;
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        /* Secciones Generales */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3.5rem;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent-color);
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        section {
+            padding: 6rem 5%;
+        }
+
+        /* Sección Sobre Nosotros */
+        .about {
+            background-color: var(--gray-bg);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .about-text p {
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Sección Menú */
+        .menu {
+            background-color: white;
+        }
+
+        .menu-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-item-img {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .menu-item-content {
+            padding: 1.8rem;
+        }
+
+        .menu-item-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+        }
+
+        .price {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* Sección Contacto */
+        .contact {
+            background: linear-gradient(var(--primary-color), #6a0000);
+            color: var(--text-light);
+        }
+
+        .contact .section-title {
+            color: var(--secondary-color);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info h3, .contact-form h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            color: var(--secondary-color);
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .contact-detail i {
+            font-size: 1.3rem;
+            margin-right: 1rem;
+            color: var(--accent-color);
+            width: 24px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .contact-form button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #247a48;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111;
+            color: #aaa;
+            text-align: center;
+            padding: 2.5rem 5%;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                position: fixed;
+                background-color: rgba(0, 0, 0, 0.95);
+                flex-direction: column;
+                width: 100%;
+                height: 100vh;
+                top: 70px;
+                left: -100%;
+                align-items: center;
+                padding-top: 3rem;
+                transition: left 0.5s ease;
+            }
+            .nav-links.active {
+                left: 0;
+            }
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="logo">Mondonguería <span>PULYAXCHE</span></div>
+        <div class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#menu">Menú</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </header>
 
-<h2>Registro de Pedido</h2>
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>El Auténtico Sabor del Mondongo</h1>
+            <p>En PULYAXCHE, cada plato es una celebración de tradición y sabor. Descubre nuestra receta secreta, transmitida por generaciones, que convierte un clásico en una experiencia inolvidable.</p>
+            <a href="#menu" class="cta-button">Ver Nuestro Menú</a>
+        </div>
+    </section>
 
-<form 
+    <!-- About Section -->
+    <section class="about" id="nosotros">
+        <h2 class="section-title">Nuestra Historia</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Más de 20 años sirviendo tradición</h3>
+                <p>La Mondonguería PULYAXCHE nació del amor por la cocina tradicional y el deseo de compartir el sabor auténtico de nuestro mondongo, preparado con especias selectas y el cuidado de siempre.</p>
+                <p>Usamos solo los ingredientes más frescos y seguimos un proceso lento de cocción que permite que los sabores se mezclen perfectamente, creando un caldo rico y una carne tierna que nos distingue.</p>
+                <p>No solo servimos comida, creamos un espacio familiar donde cada cliente se siente como en casa.</p>
+            </div>
+            <div class="about-image">
+               
+                <img src="final/img/logo.png" alt="Interior acogedor de la Mondonguería Pulyaxche">
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+        <h2 class="section-title">Especialidades de la Casa</h2>
+        <div class="menu-highlights">
+            <div class="menu-item">
+                
+                <img class="menu-item-img" src="final/img/clasico.png" alt="Mondongo Clásico Pulyaxche">
+                <div class="menu-item-content">
+                    <div class="menu-item-title">
+                        <h3>Mondongo Clásico</h3>
+                        <span class="price">$100.00</span>
+                    </div>
+                    <p>Nuestro plato insignia. Tripa de res cocida a la perfección en un caldo espeso con verduras frescas y nuestras especias secretas. Acompañado de arroz blanco y tortillas de maíz.</p>
+                </div>
+            </div>
+            <div class="menu-item">
+             
+                <img class="menu-item-img" src="final/img/picoso.png" alt="Mondongo Picante">
+                <div class="menu-item-content">
+                    <div class="menu-item-title">
+                        <h3>Mondongo Picante</h3>
+                        <span class="price">$110.00</span>
+                    </div>
+                    <p>Para los amantes del picante. La misma receta tradicional, pero con un toque especial de chiles regionales que le dan un sabor audaz e inigualable.</p>
+                </div>
+            </div>
+            <div class="menu-item">
+            
+                <img class="menu-item-img" src="final/img/mixto.png" alt="Plato Mixto Familiar">
+                <div class="menu-item-content">
+                    <div class="menu-item-title">
+                        <h3>Pozole</h3>
+                        <span class="price">$90.00</span>
+                    </div>
+                    <p>Ideal para compartir. Incluye una porción generosa de nuestro mondongo clásico, picante, acompañamientos extras, guacamole fresco y una selección de salsas caseras.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contacto">
+        <h2 class="section-title">Realiza tu pedido</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Información de Contacto</h3>
+                <div class="contact-detail">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong>Dirección</strong>
+                        <p>Calle 19 #83 entre 22 y 24, barrio Pulyaxche, Dzitbalche, Campeche. 24920.</p>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <strong>Teléfono</strong>
+                        <p>+996 112 3067</p>
+                    </div>
+                </div>
+                <div class="contact-detail">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <strong>Horarios</strong>
+                        <p> Domingo: 6:00 AM - 12:00 PM</p>
+                    </div>
+                </div>
+                <h3 style="margin-top: 2rem;">Síguenos</h3>
+                <div class="social-icons">
+                    <!-- Reemplaza # con el enlace real de tu página de Facebook -->
+                    <a href="https://www.facebook.com/mondpulyaxche" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Confirma al llamar</h3>
+                <form 
   action="https://docs.google.com/forms/d/e/1FAIpQLSca03yAL_D97jPuF-M5c2TCuvXNMxZa0JfaAiPcuQ1abWcSJg/formResponse"
   method="POST"
-  target="_self">
+  target="hidden_iframe"
+  onsubmit="pedidoEnviado();">
 
-  <label>Nombre del cliente:</label><br>
-  <input type="text" name="entry.1746796448" required><br><br>
+  <!-- Cliente -->
+  <input type="text" name="entry.1746796448" placeholder="Nombre del cliente">
 
-  <label>Pedido:</label><br>
-  <input type="text" name="entry.1748853043" required><br><br>
+  <!-- Platillo -->
+  <input type="text" name="entry.1748853043" placeholder="Platillo" required>
 
-  <label>Cantidad:</label><br>
-  <input type="number" name="entry.428740919" required><br><br>
+  <!-- Cantidad -->
+  <input type="number" name="entry.428740919" min="1" value="1" required>
 
-  <!-- Estado -->
+  <!-- Estado oculto -->
   <input type="hidden" name="entry.1321358064" value="Pendiente">
 
   <!-- Fecha -->
-  <input type="hidden" id="year" name="entry.577004131_year">
-  <input type="hidden" id="month" name="entry.577004131_month">
-  <input type="hidden" id="day" name="entry.577004131_day">
+  <input type="hidden" name="entry.577004131_year">
+  <input type="hidden" name="entry.577004131_month">
+  <input type="hidden" name="entry.577004131_day">
 
-  <button type="submit">Enviar Pedido</button>
+  <button type="submit">Enviar pedido</button>
 </form>
+<br>
+<a href="final/index2.html"
+   class="btn btn-secondary"
+   style="color: gray;">
+   Empleados
+</a>
 
-<script>
+
+
+
+
+<iframe name="hidden_iframe" style="display:none;"></iframe>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; <span id="currentYear"></span> Mondonguería PULYAXCHE. Todos los derechos reservados.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">El sabor de la tradición, en cada cucharada.</p>
+    </footer>
+
+    <script>
+        // Menú móvil
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Cerrar menú al hacer clic en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Año actual en el footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Manejo simple del formulario (para prevenir envío real en este ejemplo)
+        document.getElementById('formContacto').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('¡Gracias por tu mensaje! En un restaurante real, esto se enviaría a nuestro equipo. Te contactaremos pronto.');
+            this.reset();
+        });
+    </script>
+    <script>
+  // Fecha automática
   const hoy = new Date();
-  document.getElementById("year").value = hoy.getFullYear();
-  document.getElementById("month").value = hoy.getMonth() + 1;
-  document.getElementById("day").value = hoy.getDate();
+  document.querySelector('[name="entry.577004131_year"]').value = hoy.getFullYear();
+  document.querySelector('[name="entry.577004131_month"]').value = hoy.getMonth() + 1;
+  document.querySelector('[name="entry.577004131_day"]').value = hoy.getDate();
+
+  // Redirección al punto de venta (admin)
+  function pedidoEnviado() {
+    setTimeout(() => {
+      window.location.href = "index.html"; // menú / punto de venta
+    }, 1200);
+  }
 </script>
+
 
 </body>
 </html>
